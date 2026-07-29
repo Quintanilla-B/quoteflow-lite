@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="QuoteFlow convierte tu catálogo de tours y servicios en cotizaciones bilingües y seguimiento comercial, sin suscripción mensual."
+    />
+    <meta name="theme-color" content="#123149" />
+    <title>QuoteFlow — Cotizaciones ES/EN sin suscripción</title>
+    <style>
+      :root {
+        --navy: #123149;
+        --deep: #091d2b;
+        --teal: #0c7c73;
+        --mint: #daf4ef;
+        --sand: #fff3dd;
+        --paper: #f8fbfa;
+        --ink: #20313d;
+        --muted: #60717d;
+        --line: #d9e4e7;
+        --white: #fff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .shell {
+        width: min(1120px, calc(100% - 40px));
+        margin-inline: auto;
+      }
+
+      nav {
+        height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .brand {
+        color: var(--navy);
+        font-size: 23px;
+        font-weight: 850;
+        letter-spacing: -0.055em;
+      }
+
+      .brand span {
+        color: var(--teal);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .nav-cta {
+        padding: 11px 17px;
+        border: 1px solid var(--navy);
+        border-radius: 999px;
+        color: var(--navy);
+      }
+
+      .hero {
+        min-height: 650px;
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 68px;
+        align-items: center;
+        padding: 55px 0 85px;
+      }
+
+      .eyebrow,
+      .kicker {
+        color: var(--teal);
+        font-size: 12px;
+        font-weight: 850;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 21px 0 25px;
+        color: var(--navy);
+        font-size: clamp(50px, 6.4vw, 78px);
+        line-height: 0.98;
+        letter-spacing: -0.068em;
+      }
+
+      h1 span {
+        color: var(--teal);
+      }
+
+      .lede {
+        max-width: 610px;
+        color: var(--muted);
+        font-size: 19px;
+        line-height: 1.62;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 31px;
+      }
+
+      .button {
+        min-height: 50px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 24px;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 800;
+        transition:
+          transform 160ms ease,
+          box-shadow 160ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+      }
+
+      .primary {
+        background: var(--teal);
+        color: var(--white);
+        box-shadow: 0 12px 28px rgb(12 124 115 / 22%);
+      }
+
+      .secondary {
+        border: 1px solid var(--line);
+        background: var(--white);
+        color: var(--navy);
+      }
+
+      .trust {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        margin-top: 27px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .preview {
+        position: relative;
+        overflow: visible;
+        border: 1px solid rgb(18 49 73 / 9%);
+        border-radius: 22px;
+        background: var(--white);
+        box-shadow: 0 30px 75px rgb(18 49 73 / 16%);
+        transform: rotate(1.2deg);
+      }
+
+      .window {
+        height: 52px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 20px;
+        border-radius: 22px 22px 0 0;
+        background: var(--navy);
+        color: var(--white);
+      }
+
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: rgb(255 255 255 / 35%);
+      }
+
+      .window strong {
+        margin-left: 9px;
+        font-size: 13px;
+      }
+
+      .quote {
+        padding: 30px;
+      }
+
+      .quote-head,
+      .line,
+      .total,
+      .balance {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .quote-head {
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .quote-head small {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 850;
+        letter-spacing: 0.1em;
+      }
+
+      .quote-head div:last-child {
+        text-align: right;
+      }
+
+      .line {
+        padding: 16px 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 14px;
+      }
+
+      .total {
+        margin-top: 12px;
+        padding: 17px 18px;
+        border-radius: 8px;
+        background: var(--navy);
+        color: var(--white);
+        font-size: 17px;
+      }
+
+      .balance {
+        padding: 16px 18px;
+        background: var(--mint);
+        color: var(--navy);
+        font-size: 14px;
+      }
+
+      .floating {
+        position: absolute;
+        right: -30px;
+        bottom: -28px;
+        width: 190px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--sand);
+        box-shadow: 0 18px 45px rgb(18 49 73 / 14%);
+        transform: rotate(-1.2deg);
+      }
+
+      .floating span {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .floating strong {
+        display: block;
+        margin-top: 5px;
+        color: var(--navy);
+        font-size: 31px;
+      }
+
+      .proof {
+        background: var(--navy);
+        color: var(--white);
+      }
+
+      .proof-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .proof-grid div {
+        padding: 31px 27px;
+        border-right: 1px solid rgb(255 255 255 / 13%);
+      }
+
+      .proof-grid div:first-child {
+        border-left: 1px solid rgb(255 255 255 / 13%);
+      }
+
+      .proof-grid strong {
+        display: block;
+        font-size: 27px;
+        letter-spacing: -0.04em;
+      }
+
+      .proof-grid span {
+        color: rgb(255 255 255 / 68%);
+        font-size: 13px;
+      }
+
+      section.content {
+        padding: 105px 0;
+      }
+
+      .heading {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 70px;
+        align-items: end;
+        margin-bottom: 51px;
+      }
+
+      h2 {
+        margin: 13px 0 0;
+        color: var(--navy);
+        font-size: clamp(36px, 4.3vw, 55px);
+        line-height: 1.05;
+        letter-spacing: -0.055em;
+      }
+
+      .heading p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.7;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .card {
+        min-height: 275px;
+        padding: 28px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--white);
+      }
+
+      .card:nth-child(2) {
+        border-color: #b6ded8;
+        background: var(--mint);
+      }
+
+      .number {
+        display: inline-flex;
+        width: 40px;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: var(--sand);
+        color: var(--navy);
+        font-size: 12px;
+        font-weight: 850;
+      }
+
+      .card h3 {
+        margin: 52px 0 13px;
+        color: var(--navy);
+        font-size: 23px;
+        letter-spacing: -0.035em;
+      }
+
+      .card p,
+      .price p,
+      .faq p {
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .offer {
+        padding: 105px 0;
+        background: var(--sand);
+      }
+
+      .pricing {
+        display: grid;
+        grid-template-columns: 0.82fr 1.18fr;
+        gap: 20px;
+        max-width: 920px;
+        margin: 48px auto 0;
+      }
+
+      .price {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 500px;
+        padding: 34px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--white);
+      }
+
+      .price.featured {
+        border: 2px solid var(--teal);
+        box-shadow: 0 24px 55px rgb(12 124 115 / 14%);
+      }
+
+      .badge {
+        position: absolute;
+        top: -14px;
+        right: 24px;
+        padding: 7px 11px;
+        border-radius: 999px;
+        background: var(--teal);
+        color: var(--white);
+        font-size: 10px;
+        font-weight: 850;
+        letter-spacing: 0.08em;
+      }
+
+      .plan {
+        color: var(--teal);
+        font-size: 12px;
+        font-weight: 850;
+        letter-spacing: 0.12em;
+      }
+
+      .price h3 {
+        margin: 13px 0 10px;
+        color: var(--navy);
+        font-size: 54px;
+        letter-spacing: -0.06em;
+      }
+
+      .price h3 small {
+        font-size: 17px;
+        letter-spacing: 0;
+      }
+
+      .price ul {
+        display: grid;
+        gap: 13px;
+        margin: 23px 0 34px;
+        padding: 0;
+        list-style: none;
+      }
+
+      .price li::before {
+        content: "✓";
+        margin-right: 10px;
+        color: var(--teal);
+        font-weight: 900;
+      }
+
+      .full {
+        width: 100%;
+      }
+
+      .checkout {
+        padding: 0 0 105px;
+        background: var(--sand);
+      }
+
+      .checkout-card {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 55px;
+        align-items: center;
+        padding: 55px;
+        border-radius: 22px;
+        background: var(--teal);
+        color: var(--white);
+        box-shadow: 0 30px 70px rgb(12 124 115 / 21%);
+      }
+
+      .checkout h2 {
+        color: var(--white);
+        font-size: clamp(34px, 4vw, 50px);
+      }
+
+      .checkout p {
+        max-width: 680px;
+        color: rgb(255 255 255 / 78%);
+        line-height: 1.65;
+      }
+
+      .checkout-actions {
+        display: grid;
+        gap: 10px;
+        min-width: 225px;
+      }
+
+      .light {
+        background: var(--white);
+        color: var(--teal);
+      }
+
+      .outline {
+        border: 1px solid rgb(255 255 255 / 65%);
+        color: var(--white);
+      }
+
+      .contact {
+        margin-top: 16px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .contact a {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .faq {
+        display: grid;
+        grid-template-columns: 0.7fr 1.3fr;
+        gap: 85px;
+      }
+
+      .faq-list {
+        border-top: 1px solid var(--line);
+      }
+
+      details {
+        border-bottom: 1px solid var(--line);
+      }
+
+      summary {
+        padding: 22px 0;
+        color: var(--navy);
+        font-size: 17px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      footer {
+        padding: 38px 0;
+        background: var(--deep);
+        color: rgb(255 255 255 / 67%);
+      }
+
+      .footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        font-size: 13px;
+      }
+
+      .footer .brand {
+        color: var(--white);
+      }
+
+      .button:focus-visible,
+      a:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid #55c8bd;
+        outline-offset: 3px;
+      }
+
+      @media (max-width: 900px) {
+        .hero,
+        .heading,
+        .faq {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          gap: 55px;
+        }
+
+        .preview {
+          width: min(620px, 94%);
+          margin-inline: auto;
+        }
+
+        .heading,
+        .faq {
+          gap: 34px;
+        }
+
+        .cards {
+          grid-template-columns: 1fr;
+        }
+
+        .card {
+          min-height: auto;
+        }
+
+        .card h3 {
+          margin-top: 32px;
+        }
+
+        .checkout-card {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+
+        .checkout-actions {
+          width: min(100%, 330px);
+        }
+      }
+
+      @media (max-width: 660px) {
+        .shell {
+          width: min(100% - 28px, 1120px);
+        }
+
+        nav {
+          height: 68px;
+        }
+
+        .nav-links a:not(.nav-cta) {
+          display: none;
+        }
+
+        .hero {
+          min-height: auto;
+          padding: 38px 0 75px;
+        }
+
+        h1 {
+          font-size: 49px;
+        }
+
+        .lede {
+          font-size: 17px;
+        }
+
+        .preview {
+          width: 100%;
+        }
+
+        .floating {
+          right: 13px;
+          bottom: -42px;
+        }
+
+        .proof-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .proof-grid div {
+          padding: 23px 17px;
+        }
+
+        section.content,
+        .offer {
+          padding: 80px 0;
+        }
+
+        .pricing {
+          grid-template-columns: 1fr;
+        }
+
+        .price {
+          min-height: auto;
+        }
+
+        .checkout {
+          padding-bottom: 80px;
+        }
+
+        .checkout-card {
+          padding: 38px 24px;
+        }
+
+        .checkout-actions {
+          width: 100%;
+        }
+
+        .footer {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        .button {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="shell" aria-label="Navegación principal">
+      <a class="brand" href="#inicio">Quote<span>Flow</span></a>
+      <div class="nav-links">
+        <a href="#incluye">Qué incluye</a>
+        <a href="#precios">Precios</a>
+        <a class="nav-cta" href="#comprar">Empezar</a>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero shell" id="inicio">
+        <div>
+          <div class="eyebrow">Cotizaciones ES/EN · Excel · Sin suscripción</div>
+          <h1>Cotiza en minutos.<br /><span>Da seguimiento sin caos.</span></h1>
+          <p class="lede">
+            QuoteFlow convierte tu catálogo de tours y servicios en una
+            cotización clara, calcula depósito y saldo, y deja visible la
+            próxima acción de cada cliente.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#comprar">Obtener piloto por USD 25</a>
+            <a class="button secondary" href="#incluye">Ver cómo funciona</a>
+          </div>
+          <div class="trust" aria-label="Beneficios principales">
+            <span>✓ Listo en 24 horas</span>
+            <span>✓ Fórmulas transparentes</span>
+            <span>✓ Sin pago mensual</span>
+          </div>
+        </div>
+
+        <div class="preview" aria-label="Ejemplo de una cotización">
+          <div class="window">
+            <span class="dot"></span><span class="dot"></span
+            ><span class="dot"></span><strong>Cotización · Quote</strong>
+          </div>
+          <div class="quote">
+            <div class="quote-head">
+              <div><small>CLIENTE</small><strong>María Ejemplo</strong></div>
+              <div><small>VÁLIDA HASTA</small><strong>04 AGO</strong></div>
+            </div>
+            <div class="line">
+              <span>Traslado privado aeropuerto</span><strong>$35</strong>
+            </div>
+            <div class="line">
+              <span>Excursión al volcán × 2</span><strong>$98</strong>
+            </div>
+            <div class="line">
+              <span>Guía privado bilingüe</span><strong>$95</strong>
+            </div>
+            <div class="total"><span>Total</span><strong>$262.20</strong></div>
+            <div class="balance">
+              <span>Depósito 30%</span><strong>$78.66</strong>
+            </div>
+          </div>
+          <div class="floating">
+            <span>Próximos seguimientos</span><strong>2</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof">
+        <div class="shell proof-grid">
+          <div><strong>6</strong><span>hojas conectadas</span></div>
+          <div><strong>ES/EN</strong><span>catálogo bilingüe</span></div>
+          <div><strong>USD 0</strong><span>suscripción mensual</span></div>
+          <div><strong>24 h</strong><span>piloto configurado</span></div>
+        </div>
+      </section>
+
+      <section class="content shell" id="incluye">
+        <div class="heading">
+          <div>
+            <span class="kicker">Un sistema pequeño, no otra plataforma</span>
+            <h2>De la consulta al depósito en un solo archivo.</h2>
+          </div>
+          <p>
+            Diseñado para operadores turísticos, guías, alojamientos pequeños y
+            profesionales que venden servicios con precios variables.
+          </p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <span class="number">01</span>
+            <h3>Cotiza sin copiar y pegar</h3>
+            <p>
+              Selecciona servicios y cantidades. QuoteFlow calcula subtotal,
+              descuento, impuesto, depósito y saldo.
+            </p>
+          </article>
+          <article class="card">
+            <span class="number">02</span>
+            <h3>Atiende en español e inglés</h3>
+            <p>
+              Un solo catálogo alimenta descripciones ES/EN para responder mejor
+              a clientes locales e internacionales.
+            </p>
+          </article>
+          <article class="card">
+            <span class="number">03</span>
+            <h3>Sabe a quién seguir</h3>
+            <p>
+              El CRM ligero muestra estado, valor cotizado y próxima acción sin
+              añadir otra suscripción mensual.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="offer" id="precios">
+        <div class="shell">
+          <div class="heading">
+            <div>
+              <span class="kicker">Dos formas de empezar</span>
+              <h2>Recíbelo listo para tu negocio.</h2>
+            </div>
+            <p>
+              Precio único. El archivo queda bajo tu control y puedes cambiar
+              servicios y precios cuando quieras.
+            </p>
+          </div>
+          <div class="pricing">
+            <article class="price">
+              <div>
+                <span class="plan">PILOTO</span>
+                <h3><small>USD</small> 25</h3>
+                <p>La manera rápida de probarlo con tu operación.</p>
+              </div>
+              <ul>
+                <li>Tu marca y datos de contacto</li>
+                <li>Hasta 10 servicios cargados</li>
+                <li>Impuesto y depósito configurados</li>
+                <li>Entrega en 24 horas</li>
+              </ul>
+              <a class="button primary full" href="#comprar">Elegir piloto</a>
+            </article>
+            <article class="price featured">
+              <div class="badge">MÁS COMPLETO</div>
+              <div>
+                <span class="plan">PERSONALIZACIÓN</span>
+                <h3><small>USD</small> 59</h3>
+                <p>Configuración completa para cotizar desde el primer día.</p>
+              </div>
+              <ul>
+                <li>Tu marca y datos de contacto</li>
+                <li>Hasta 30 servicios cargados</li>
+                <li>Impuestos y depósito configurados</li>
+                <li>Prueba con una cotización real</li>
+                <li>Una ronda de ajustes</li>
+              </ul>
+              <a class="button primary full" href="#comprar"
+                >Elegir personalización</a
+              >
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="checkout" id="comprar">
+        <div class="shell checkout-card">
+          <div>
+            <span class="kicker" style="color: #bdf7ef"
+              >Piloto de lanzamiento · USD 25</span
+            >
+            <h2>Tu marca y hasta 10 servicios, listos en 24 horas.</h2>
+            <p>
+              Paga con Lightning o solicita un cobro por PayPal. Después del
+              pago recibirás un correo para enviar tu logotipo, datos y lista de
+              servicios.
+            </p>
+            <div class="contact">
+              Contacto:
+              <a href="mailto:quintanillaberroteranj@gmail.com"
+                >quintanillaberroteranj@gmail.com</a
+              >
+            </div>
+          </div>
+          <div class="checkout-actions">
+            <a
+              class="button light"
+              href="https://coinos.io/fieldnoteee7a16d3"
+              target="_blank"
+              rel="noreferrer"
+              >Pagar con Lightning ↗</a
+            >
+            <a
+              class="button outline"
+              href="mailto:quintanillaberroteranj@gmail.com?subject=Piloto%20QuoteFlow%20USD%2025&body=Hola%2C%20quiero%20el%20piloto%20QuoteFlow%20para%20mi%20negocio.%20Env%C3%ADame%20una%20solicitud%20de%20pago%20PayPal."
+              >Solicitar cobro PayPal</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="content shell faq">
+        <div>
+          <span class="kicker">Preguntas frecuentes</span>
+          <h2>Claro desde el principio.</h2>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>¿Necesito una suscripción?</summary>
+            <p>No. QuoteFlow funciona como un archivo .xlsx independiente.</p>
+          </details>
+          <details>
+            <summary>¿Puedo cambiar precios y servicios?</summary>
+            <p>
+              Sí. El catálogo es editable y alimenta automáticamente el
+              cotizador.
+            </p>
+          </details>
+          <details>
+            <summary>¿La plantilla usa macros?</summary>
+            <p>
+              No. Usa fórmulas y validaciones visibles para mantenerla simple y
+              auditable.
+            </p>
+          </details>
+          <details>
+            <summary>¿Sirve fuera del turismo?</summary>
+            <p>
+              Sí. También funciona para agencias y profesionales que venden un
+              catálogo de servicios.
+            </p>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell footer">
+        <a class="brand" href="#inicio">Quote<span>Flow</span></a>
+        <span>Cotizaciones claras. Seguimientos a tiempo.</span>
+        <a href="mailto:quintanillaberroteranj@gmail.com">Contacto</a>
+      </div>
+    </footer>
+  </body>
+</html>
+

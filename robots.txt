@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://quintanilla-b.github.io/quoteflow-lite/sitemap.xml
